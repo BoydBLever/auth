@@ -18,6 +18,6 @@
     <script src="/webjars/bootstrap/js/bootstrap.min.js"></script>
 </head>
 <body>
-   
+   <h1> WELCOME, <c:out value="${userName }"/> </h1>
 </body>
 </html>

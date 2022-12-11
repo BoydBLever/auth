@@ -1,5 +1,7 @@
 package com.boydlever.auth.controllers;
 
+import java.util.Optional;
+
 import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 
@@ -42,6 +44,7 @@ public class UserController {
         }
       //2.2 If no errors, set userId in session and redirect
         session.setAttribute("userId", registeredUser.getId());
+        session.setAttribute("userName", registeredUser.getUserName());
         return "redirect:/dashboard";
         
         // No errors! 
@@ -53,17 +56,24 @@ public class UserController {
     public String login(@Valid @ModelAttribute("newLogin") LoginUser newLogin, 
             BindingResult result, Model model, HttpSession session) {
         
-        // Add once service is implemented:
-        // User user = userServ.login(newLogin, result);
+        //1.get the user by calling login in service and make use of the binding result
+    	User loginUser = userService.login(newLogin, result);
+    	
+    	//2. check for result errors
+    	//2.1 if there are errors, put the missing model in and return jsp
+    	if (result.hasErrors()) {
+    		model.addAttribute("newUser", new User());
+    		return "logreg.jsp";
+    	}
+    	//2.2 if no errors, get the user infom from user and set UserId in the session
+    	session.setAttribute("userId", loginUser.getId());
+    	session.setAttribute("userName", loginUser.getUserName());
+    		return "redirect:/dashboard";
+    }
     
-        if(result.hasErrors()) {
-            model.addAttribute("newUser", new User());
-            return "logreg.jsp";
-        }
-    
-       // 2.2 If no errors, get the user info from user and set userId in the session
-    
-        return "redirect:/dashboard";
+    @GetMapping("/dashboard")
+    public String dashboard() {
+    	return "dashboard.jsp";
     }
     
 }

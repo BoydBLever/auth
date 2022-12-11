@@ -39,6 +39,25 @@ public class UserService {
 		return newUser;
 	}
 	public User login(LoginUser newLogin, BindingResult result) {
-		return null;
+		//TO-DO - Reject values:
+		//1. Find user in the DB by email
+		Optional<User> optionalUser = userRepo.findByEmail(newLogin.getEmail());
+		
+		//2. If the email is not present, reject and return
+		if(!optionalUser.isPresent()) {
+			result.rejectValue("email", "unique","This email is not registered.");
+			return null;
+		}
+		//3.1 Grab the user from potential user
+		User user = optionalUser.get();
+		//3.2 if BCrypt password match fails
+		if(!BCrypt.checkpw(newLogin.getPassword(), user.getPassword())) {
+		    result.rejectValue("password", "Matches", "Invalid Password!");
+		}
+		if(result.hasErrors()) {
+			return null;
+		}
+		//otherwise, return the user object
+		return user;
 	}
 }
