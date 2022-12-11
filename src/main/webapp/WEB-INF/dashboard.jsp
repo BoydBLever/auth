@@ -19,5 +19,6 @@
 </head>
 <body>
    <h1> WELCOME, <c:out value="${userName }"/> </h1>
+   <p> <a href="/logout">Logout</a>
 </body>
 </html>

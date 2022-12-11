@@ -75,5 +75,9 @@ public class UserController {
     public String dashboard() {
     	return "dashboard.jsp";
     }
-    
+    @GetMapping("/logout")
+    public String logout(HttpSession session) {
+    	session.invalidate();
+    	return "redirect:/";
+    }
 }
