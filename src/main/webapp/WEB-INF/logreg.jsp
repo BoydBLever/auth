@@ -16,6 +16,17 @@
     <link rel="stylesheet" href="/css/main.css"> <!-- change to match your file/naming structure -->
 </head>
 <body>
+   <div class="container mt-5">
+   		<h1>Register</h1>
+   		<form:form action="/register" method="POST" modelAttribute="newUser">
+   		<!-- register form -->
+   		</form:form>
+   		
+   		<h1>Login</h1>
+   		<form:form action="/login" method="POST" modelAttribute="newLogin">
+   		<!-- login form -->
+   		</form:form>
    
+   </div>
 </body>
 </html>
