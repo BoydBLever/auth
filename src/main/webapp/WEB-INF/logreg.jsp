@@ -31,13 +31,13 @@
     	</div>
     	<div class="form-group">
         	<form:label path="password">Password:</form:label>
-        	<form:input path="password" class="form-control"/>
-        	<form:errors type="password" path="password" class="text-danger"/>
+        	<form:input type="password" path="password" class="form-control"/>
+        	<form:errors path="password" class="text-danger"/>
      	</div>
      	<div class="form-group">
         	<form:label path="confirm">Confirm password:</form:label>
-        	<form:input path="confirm" class="form-control"/>
-       		<form:errors type= "password" path="confirm"/>
+        	<form:input type="password" path="confirm" class="form-control"/>
+       		<form:errors path="confirm" class="text-danger"/>
     	</div>
     		<button type="submit" class="btn btn-primary">Register</button>
    		</form:form>
@@ -51,7 +51,7 @@
    		</div>
      	<div class="form-group">
         	<form:label path="password">Password:</form:label>
-        	<form:input path="password" class="form-control"/>
+        	<form:input type="password" path="password" class="form-control"/>
         	<form:errors type="password" path="password" class="text-danger"/>
     	</div>
    		 <button type="submit" class="btn btn-primary">Login</button>

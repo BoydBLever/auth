@@ -3,6 +3,7 @@ package com.boydlever.auth.controllers;
 import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -12,10 +13,14 @@ import org.springframework.web.bind.annotation.PostMapping;
 
 import com.boydlever.auth.models.LoginUser;
 import com.boydlever.auth.models.User;
+import com.boydlever.auth.services.UserService;
 
 @Controller
 public class UserController {
 // import service
+	@Autowired
+	private UserService userService;
+	
 	@GetMapping("/")
 	public String logregform(Model model) {
 		model.addAttribute("newUser", new User());
@@ -25,22 +30,23 @@ public class UserController {
 	@PostMapping("/register")
     public String register(@Valid @ModelAttribute("newUser") User newUser, 
             BindingResult result, Model model, HttpSession session) {
-        
-        // TO-DO Later -- call a register method in the service 
-        // to do some extra validations and create a new user!
+		//TO-DO later -- call a register method in the service
+		User registeredUser = userService.register(newUser, result);
+		//1. get the registeredUser by calling register in service and make use of the binding result
+        //2. check for result errors
+		//2.1 If there are no errors, put the missing model in and return jsp
         
         if(result.hasErrors()) {
-            // Be sure to send in the empty LoginUser before 
-            // re-rendering the page.
             model.addAttribute("newLogin", new LoginUser());
-            return "index.jsp";
+            return "logreg.jsp";
         }
+      //2.2 If no errors, set userId in session and redirect
+        session.setAttribute("userId", registeredUser.getId());
+        return "redirect:/dashboard";
         
         // No errors! 
         // TO-DO Later: Store their ID from the DB in session, 
         // in other words, log them in.
-    
-        return "redirect:/home";
     }
     
     @PostMapping("/login")
@@ -52,16 +58,12 @@ public class UserController {
     
         if(result.hasErrors()) {
             model.addAttribute("newUser", new User());
-            return "index.jsp";
+            return "logreg.jsp";
         }
     
-        // No errors! 
-        // TO-DO Later: Store their ID from the DB in session, 
-        // in other words, log them in.
+       // 2.2 If no errors, get the user info from user and set userId in the session
     
-        return "redirect:/home";
+        return "redirect:/dashboard";
     }
     
-}copy
-
 }
