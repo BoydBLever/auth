@@ -20,13 +20,44 @@
    		<h1>Register</h1>
    		<form:form action="/register" method="POST" modelAttribute="newUser">
    		<!-- register form -->
+   	<p>
+        <form:label path="userName">User Name:</form:label>
+        <form:errors path="userName" class="form-control"/>
+        <form:input path="userName" class="text-danger"/>
+    </p>
+     <p>
+        <form:label path="email">Email:</form:label>
+        <form:errors path="email" class="form control"/>
+        <form:input path="email" class="text-danger"/>
+    </p>
+     <p>
+        <form:label path="password">Password:</form:label>
+        <form:errors path="password"/>
+        <form:input type="password" path="password" class="text-danger"/>
+    </p>
+     <p>
+        <form:label path="confirm">Confirm password:</form:label>
+        <form:errors path="confirm"/>
+        <form:input type= "password" path="confirm"/>
+    </p>
+    <button type="submit" class="btn btn-primary">Register</button>
+   		
    		</form:form>
    		
    		<h1>Login</h1>
    		<form:form action="/login" method="POST" modelAttribute="newLogin">
-   		<!-- login form -->
+   		<p>
+        	<form:label path="email">Email:</form:label>
+        	<form:errors path="email" class="form control"/>
+        	<form:input path="email" class="text-danger"/>
+   		</p>
+     	<p>
+        	<form:label path="password">Password:</form:label>
+        	<form:errors path="password"/>
+        	<form:input type="password" path="password" class="text-danger"/>
+    	</p>
+   		 <button type="submit" class="btn btn-primary">Login</button>
    		</form:form>
-   
    </div>
 </body>
 </html>
